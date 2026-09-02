@@ -1,0 +1,15 @@
+# Local configuration - never commit real credentials
+config/config.php
+
+# Dependencies
+/vendor/
+
+# Editor and OS noise
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Logs and temp
+*.log
+/tmp/
