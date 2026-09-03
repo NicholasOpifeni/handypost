@@ -1,7 +1,4 @@
--- Handypost schema
--- Import with: mysql -u root -p < database/schema.sql
-
-CREATE DATABASE IF NOT EXISTS Handypost
+CREATE DATABASE IF NOT EXISTS handypost
 CHARACTER SET utf8mb4
 COLLATE utf8mb4_unicode_ci;
 

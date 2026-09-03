@@ -19,9 +19,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $errors = validate_signup($input);
 
-    // TEMPORARY: replaced with a real database insert in the next commit.
     if ($errors === []) {
-        flash('success', 'Input is valid. Saving comes next.');
+        $userId = create_user($input['username'], $input['email'], $input['password']);
+
+        if ($userId === null) {
+            $errors['email'] = 'That email address is already registered.';
+        } else {
+            flash('success', 'Account created. Log in to continue.');
+            redirect('login.php');
+        }
     }
 
     flash('errors', $errors);
