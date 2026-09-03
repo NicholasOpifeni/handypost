@@ -74,3 +74,22 @@ function validate_password(string $password, string $confirmation): array
 
     return [];
 }
+
+function validate_profile(array $input): array
+{
+    $errors = array_merge(
+        validate_username($input['username'] ?? ''),
+        validate_email($input['email'] ?? '')
+    );
+
+    $password = $input['password'] ?? '';
+
+    if ($password !== '') {
+        $errors = array_merge(
+            $errors,
+            validate_password($password, $input['confirm_password'] ?? '')
+        );
+    }
+
+    return $errors;
+}
