@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 require dirname(__DIR__) . '/src/bootstrap.php';
+require_guest();
 
 $errors = flash('errors') ?? [];
 $old = flash('old') ?? [];
