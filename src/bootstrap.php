@@ -9,6 +9,7 @@ require BASE_PATH . '/src/database.php';
 require BASE_PATH . '/src/csrf.php';
 require BASE_PATH . '/src/validation.php';
 require BASE_PATH . '/src/users.php';
+require BASE_PATH . '/src/auth.php';
 
 $appSettings = config('app');
 
