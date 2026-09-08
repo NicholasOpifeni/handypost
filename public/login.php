@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 require dirname(__DIR__) . '/src/bootstrap.php';
+
 require_guest();
 
 $errors = flash('errors') ?? [];
@@ -31,36 +32,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $pageTitle = 'Log in';
+$layout = 'auth';
 require BASE_PATH . '/src/views/header.php';
 ?>
 
-<h1>Log in</h1>
+<div class="panel">
+    <h1>Login</h1>
+    <hr class="panel__rule">
 
-<?php if ($success !== null): ?>
-    <p class="notice notice--good"><?= e($success) ?></p>
-<?php endif; ?>
+    <?php if ($success !== null): ?>
+        <p class="notice notice--good"><?= e($success) ?></p>
+    <?php endif; ?>
 
-<?php if (isset($errors['form'])): ?>
-    <p class="notice notice--bad"><?= e($errors['form']) ?></p>
-<?php endif; ?>
+    <?php if (isset($errors['form'])): ?>
+        <p class="notice notice--bad"><?= e($errors['form']) ?></p>
+    <?php endif; ?>
 
-<form action="login.php" method="post" novalidate>
-    <?= csrf_field() ?>
+    <form action="login.php" method="post" novalidate>
+        <?= csrf_field() ?>
 
-    <div class="field">
-        <label for="email">Email address</label>
-        <input id="email" name="email" type="email"
-            value="<?= e($old['email'] ?? '') ?>" autocomplete="email" required>
-    </div>
+        <div class="field">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com"
+                value="<?= e($old['email'] ?? '') ?>" autocomplete="email" required>
+        </div>
 
-    <div class="field">
-        <label for="password">Password</label>
-        <input id="password" name="password" type="password" autocomplete="current-password" required>
-    </div>
+        <div class="field">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" placeholder="••••••••"
+                autocomplete="current-password" required>
+        </div>
 
-    <button type="submit">Log in</button>
-</form>
+        <div class="form-actions">
+            <button class="button button--block" type="submit">Log in</button>
+        </div>
+    </form>
 
-<p><a href="signup.php">No account yet? Create one</a></p>
+    <p class="panel__aside">Don't have an account? <a href="signup.php">Sign up now</a></p>
+</div>
 
 <?php require BASE_PATH . '/src/views/footer.php'; ?>

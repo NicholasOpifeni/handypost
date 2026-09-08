@@ -12,20 +12,34 @@ $pageTitle = 'Dashboard';
 require BASE_PATH . '/src/views/header.php';
 ?>
 
-<h1>Welcome back, <?= e($user['username']) ?></h1>
+<div class="welcome">
+    <h1>Welcome <?= e($user['username']) ?>!</h1>
+    <p>You're signed in to Handypost.</p>
+</div>
 
 <?php if ($success !== null): ?>
     <p class="notice notice--good"><?= e($success) ?></p>
 <?php endif; ?>
 
-<dl class="detail-list">
-    <dt>Username</dt>
-    <dd><?= e($user['email']) ?></dd>
+<div class="panel">
+    <dl class="detail-list">
+        <div>
+            <dt>Username</dt>
+            <dd><?= e($user['username']) ?></dd>
+        </div>
 
-    <dt>Member since</dt>
-    <dd><?= e(date('j F Y', strtotime((string) $user['created_at']))) ?></dd>
-</dl>
+        <div>
+            <dt>Email address</dt>
+            <dd><?= e($user['email']) ?></dd>
+        </div>
 
-<p><a href="profile.php">Edit your profile</a></p>
+        <div>
+            <dt>Member since</dt>
+            <dd><?= e(date('j F Y', strtotime((string) $user['created_at']))) ?></dd>
+        </div>
+    </dl>
+
+    <a class="button" href="profile.php">Change profile</a>
+</div>
 
 <?php require BASE_PATH . '/src/views/footer.php'; ?>

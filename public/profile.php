@@ -42,58 +42,66 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     redirect('profile.php');
 }
 
-$pageTitle = 'Your profile';
+$pageTitle = 'Change profile';
+$layout = 'auth';
 require BASE_PATH . '/src/views/header.php';
 ?>
 
-<h1>Your profile</h1>
+<div class="panel">
+    <h1>Change profile</h1>
+    <hr class="panel__rule">
 
-<form action="profile.php" method="post" novalidate>
-    <?= csrf_field() ?>
-
-    <div class="field">
-        <label for="username">Username</label>
-        <input id="username" name="username" type="text"
-            value="<?= e($old['username'] ?? $user['username']) ?>"
-            autocomplete="username" required>
-        <?php if (isset($errors['username'])): ?>
-            <p class="field__error"><?= e($errors['username']) ?></p>
-        <?php endif; ?>
-    </div>
-
-    <div class="field">
-        <label for="email">Email address</label>
-        <input id="email" name="email" type="email"
-            value="<?= e($old['email'] ?? $user['email']) ?>"
-            autocomplete="email" required>
-        <?php if (isset($errors['email'])): ?>
-            <p class="field__error"><?= e($errors['email']) ?></p>
-        <?php endif; ?>
-    </div>
-
-    <fieldset class="fieldset">
-        <legend>Change your password</legend>
-        <p class="field__hint">Leave both fields empty to keep your current password.</p>
+    <form action="profile.php" method="post" novalidate>
+        <?= csrf_field() ?>
 
         <div class="field">
-            <label for="password">New password</label>
-            <input id="password" name="password" type="password" autocomplete="new-password">
-            <?php if (isset($errors['password'])): ?>
-                <p class="field__error"><?= e($errors['password']) ?></p>
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text"
+                value="<?= e($old['username'] ?? $user['username']) ?>"
+                autocomplete="username" required>
+            <?php if (isset($errors['username'])): ?>
+                <p class="field__error"><?= e($errors['username']) ?></p>
             <?php endif; ?>
         </div>
 
         <div class="field">
-            <label for="confirm_password">Confirm new password</label>
-            <input id="confirm_password" name="confirm_password" type="password"
-                autocomplete="new-password">
-            <?php if (isset($errors['confirm_password'])): ?>
-                <p class="field__error"><?= e($errors['confirm_password']) ?></p>
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email"
+                value="<?= e($old['email'] ?? $user['email']) ?>"
+                autocomplete="email" required>
+            <?php if (isset($errors['email'])): ?>
+                <p class="field__error"><?= e($errors['email']) ?></p>
             <?php endif; ?>
         </div>
-    </fieldset>
 
-    <button type="submit">Save changes</button>
-</form>
+        <fieldset class="fieldset">
+            <legend>Change your password</legend>
+            <p class="field__hint">Leave both fields empty to keep your current password.</p>
+
+            <div class="field">
+                <label for="password">New password</label>
+                <input id="password" name="password" type="password" autocomplete="new-password">
+                <?php if (isset($errors['password'])): ?>
+                    <p class="field__error"><?= e($errors['password']) ?></p>
+                <?php endif; ?>
+            </div>
+
+            <div class="field">
+                <label for="confirm_password">Confirm new password</label>
+                <input id="confirm_password" name="confirm_password" type="password"
+                    autocomplete="new-password">
+                <?php if (isset($errors['confirm_password'])): ?>
+                    <p class="field__error"><?= e($errors['confirm_password']) ?></p>
+                <?php endif; ?>
+            </div>
+        </fieldset>
+
+        <div class="form-actions">
+            <button class="button button--block" type="submit">Update</button>
+        </div>
+    </form>
+
+    <p class="panel__aside"><a href="dashboard.php">Back to dashboard</a></p>
+</div>
 
 <?php require BASE_PATH . '/src/views/footer.php'; ?>

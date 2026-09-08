@@ -34,9 +34,9 @@ function start_secure_session(): void
 
     session_set_cookie_params([
         'lifetime' => 0,
-        'path'     => '/',
-        'domain'   => '',
-        'secure'   => !empty($_SERVER['HTTPS']),
+        'path' => '/',
+        'domain' => '',
+        'secure' => !empty($_SERVER['HTTPS']),
         'httponly' => true,
         'samesite' => 'Lax',
     ]);

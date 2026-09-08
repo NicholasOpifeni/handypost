@@ -24,7 +24,7 @@ function validate_username(string $username): array
         return ['username' => 'Enter a username.'];
     }
 
-    if (mb_strleen($username) < USERNAME_MIN_LENGTH) {
+    if (mb_strlen($username) < USERNAME_MIN_LENGTH) {
         return ['username' => 'Username must be at least' . USERNAME_MIN_LENGTH . ' characters.'];
     }
 

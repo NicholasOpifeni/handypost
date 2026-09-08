@@ -31,6 +31,36 @@ Rather than patch it, I rebuilt it from scratch so I understood every line.
 | Duplicate accounts | Unique index on `email`, SQLSTATE 23000 handled |
 | Supply chain | No CDN, no third-party JavaScript, no external requests |
 
+## What this project demonstrates
+
+Each item fixes a specific vulnerability found while auditing an existing
+open-source login system.
+
+**Prepared statements.** Every query is parameterised with PDO and
+`ATTR_EMULATE_PREPARES` disabled, so MySQL parses the SQL before any value
+exists. The original interpolated user input into query strings, making the
+login form a straight authentication bypass.
+
+**Bcrypt hashing.** Passwords go through `password_hash` with
+`PASSWORD_DEFAULT`. The hash is never sent to the browser. The original
+pre-filled its profile form with the stored hash and wrote whatever came back
+into the database unhashed, which locked accounts out permanently.
+
+**Session hardening.** Session IDs are regenerated at login and on password
+change, closing session fixation. Cookies are set HttpOnly, Secure and
+SameSite=Lax before the session starts.
+
+**CSRF tokens.** Every state-changing request carries a per-session token
+compared with `hash_equals`, which is constant-time and so does not leak
+information through response timing.
+
+**Output escaping.** All user-supplied data is escaped at the point of
+rendering with `ENT_QUOTES` set, closing stored XSS via the username field.
+
+**No user enumeration.** Login failures return an identical message whether or
+not the account exists, and verify against a decoy hash when it does not, so
+the response time does not reveal which emails are registered.
+
 ## Structure
 
 Only `public/` is web-reachable. Application code and configuration sit

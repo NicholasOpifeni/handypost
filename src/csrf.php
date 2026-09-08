@@ -16,7 +16,7 @@ function csrf_field(): string
     return '<input type="hidden" name="_csrf_token" value="' . e(csrf_token()) . '">';
 }
 
-function crsf_verify(): void
+function csrf_verify(): void
 {
     $submitted = $_POST['_csrf_token'] ?? '';
 

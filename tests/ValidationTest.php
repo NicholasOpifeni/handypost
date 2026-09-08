@@ -9,8 +9,8 @@ final class ValidationTest extends TestCase
     public function testValidInputProducesNoErrors(): void
     {
         $errors = validate_signup([
-            'username'         => 'nakato',
-            'email'            => 'nakato@example.com',
+            'username'         => 'nicholas',
+            'email'            => 'nicholas@example.com',
             'password'         => 'correct horse battery',
             'confirm_password' => 'correct horse battery',
         ]);
@@ -22,7 +22,7 @@ final class ValidationTest extends TestCase
     {
         $errors = validate_signup([
             'username'         => 'ab',
-            'email'            => 'nakato@example.com',
+            'email'            => 'nicholas@example.com',
             'password'         => 'correct horse battery',
             'confirm_password' => 'correct horse battery',
         ]);
@@ -33,8 +33,8 @@ final class ValidationTest extends TestCase
     public function testMismatchedPasswordsAreRejected(): void
     {
         $errors = validate_signup([
-            'username'         => 'nakato',
-            'email'            => 'nakato@example.com',
+            'username'         => 'nicholas',
+            'email'            => 'nicholas@example.com',
             'password'         => 'correct horse battery',
             'confirm_password' => 'correct horse batteries',
         ]);
@@ -47,8 +47,8 @@ final class ValidationTest extends TestCase
         $tooLong = str_repeat('a', 73);
 
         $errors = validate_signup([
-            'username'         => 'nakato',
-            'email'            => 'nakato@example.com',
+            'username'         => 'nicholas',
+            'email'            => 'nicholas@example.com',
             'password'         => $tooLong,
             'confirm_password' => $tooLong,
         ]);
@@ -67,7 +67,7 @@ final class ValidationTest extends TestCase
 
     public function testUnicodeUsernameIsAccepted(): void
     {
-        $errors = validate_username('Nakato Zawadi');
+        $errors = validate_username('Nicholas A');
 
         $this->assertSame([], $errors);
     }
@@ -75,8 +75,8 @@ final class ValidationTest extends TestCase
     public function testProfileUpdateAllowsEmptyPassword(): void
     {
         $errors = validate_profile([
-            'username' => 'nakato',
-            'email'    => 'nakato@example.com',
+            'username' => 'nicholas',
+            'email'    => 'nicholas@example.com',
             'password' => '',
         ]);
 
