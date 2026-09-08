@@ -37,11 +37,23 @@ function db(): PDO
         $settings['charset']
     );
 
-    $pdo = new PDO($dsn, $settings['user'], $settings['pass'], [
-        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_EMULATE_PREPARES   => false,
-    ]);
+    try {
+        $pdo = new PDO($dsn, $settings['user'], $settings['pass'], [
+            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES   => false,
+        ]);
+    } catch (PDOException $exception) {
+        $app = config('app');
+
+        if (!empty($app['debug'])) {
+            exit('Database connection failed: ' . $exception->getMessage()
+                . ' — check the credentials in config/config.php.');
+        }
+
+        http_response_code(503);
+        exit('The service is temporarily unavailable.');
+    }
 
     return $pdo;
 }
